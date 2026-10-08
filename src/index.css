@@ -1,0 +1,444 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --bg-main: #FAFAF8;
+    --bg-card: #FFFFFF;
+    --bg-soft: #F3F3F0;
+    --text-primary: #111111;
+    --text-secondary: #666666;
+    --text-muted: #999999;
+    --border-color: #E7E7E4;
+    --accent: #8B3A4A;
+    --accent-hover: #732D3B;
+    --accent-tint: #F2E5E8;
+    --accent-border: #E8D3D8;
+    --dark-section: #111111;
+  }
+
+  body {
+    background-color: #FAFAF8;
+    color: #111111;
+    font-family: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, .font-serif-headline {
+    font-family: 'Instrument Serif', Georgia, serif;
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+    letter-spacing: -0.02em;
+  }
+}
+
+/* Editorial Card & Panel styles */
+.editorial-card {
+  background-color: #FFFFFF;
+  border: 1px solid #E7E7E4;
+  border-radius: 24px;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.editorial-card:hover {
+  border-color: #8B3A4A;
+  box-shadow: 0 12px 30px -10px rgba(139, 58, 74, 0.08);
+}
+
+/* Button & Pill Utilities for Editorial ARTVERSE Theme */
+.btn-accent {
+  background-color: #8B3A4A;
+  color: #FFFFFF;
+  font-weight: 600;
+  border-radius: 9999px;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-accent:hover {
+  background-color: #732D3B;
+  transform: translateY(-1px);
+}
+
+.btn-white {
+  background-color: #FFFFFF;
+  color: #111111;
+  border: 1px solid #E7E7E4;
+  font-weight: 600;
+  border-radius: 9999px;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-white:hover {
+  border-color: #8B3A4A;
+  color: #8B3A4A;
+  background-color: #FAFAF8;
+  transform: translateY(-1px);
+}
+
+.btn-accent-outline {
+  background-color: #FFFFFF;
+  color: #8B3A4A;
+  border: 1px solid #E8D3D8;
+  font-weight: 600;
+  border-radius: 9999px;
+  transition: all 0.2s ease;
+}
+
+.btn-accent-outline:hover {
+  background-color: #F2E5E8;
+  border-color: #8B3A4A;
+}
+
+/* Custom editorial scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #FAFAF8;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #D8D8D4;
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #B5B5B0;
+}
+
+/* ── Global width: widen all max-w-7xl containers ── */
+/* Tailwind's max-w-7xl = 80rem (1280px). We bump to 1440px site-wide. */
+.max-w-7xl {
+  max-width: 90rem !important; /* 1440px */
+}
+
+/* Slightly tighter horizontal padding on smaller desktop viewports */
+@media (min-width: 1280px) {
+  .max-w-7xl {
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
+  }
+}
+
+
+/* ================================================================
+   CINEMATIC HERO — ARTVERSE (Full-Screen)
+   ================================================================ */
+
+/* ── Full-screen wrapper ── */
+.av-fullscreen-hero {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  min-height: 600px;
+  overflow: hidden;
+  background: #0E0A08;
+  display: flex;
+  align-items: flex-end;
+}
+
+/* ── Background video ── */
+.av-bg-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+  opacity: 0;
+  transition: opacity 1s ease;
+  z-index: 0;
+}
+.av-bg-video--visible {
+  opacity: 1;
+}
+
+/* ── Cinematic gradient overlays ── */
+.av-overlay {
+  position: absolute;
+  z-index: 1;
+  pointer-events: none;
+}
+.av-overlay--bottom {
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(10, 6, 4, 0.92) 0%,
+    rgba(10, 6, 4, 0.55) 40%,
+    transparent 70%
+  );
+}
+.av-overlay--left {
+  inset: 0;
+  background: linear-gradient(
+    to right,
+    rgba(10, 6, 4, 0.6) 0%,
+    transparent 60%
+  );
+}
+.av-overlay--top {
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 120px;
+  background: linear-gradient(to bottom, rgba(10, 6, 4, 0.35) 0%, transparent 100%);
+}
+
+/* ── Loading spinner ── */
+.av-loading {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.av-loading__ring {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 2px solid rgba(242, 229, 232, 0.15);
+  border-top-color: #8B3A4A;
+  animation: av-spin 0.9s linear infinite;
+}
+@keyframes av-spin { to { transform: rotate(360deg); } }
+
+/* ── Main content overlay ── */
+.av-content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  padding: 0 4rem 5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0;
+}
+
+@media (max-width: 767px) {
+  .av-content {
+    padding: 0 1.5rem 3.5rem;
+  }
+}
+
+/* ── Eyebrow ── */
+.av-content__eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 1.25rem;
+}
+.av-content__dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #C4A882;
+  flex-shrink: 0;
+}
+.av-content__eyebrow-text {
+  font-family: 'Manrope', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #C4A882;
+}
+
+/* ── Headline ── */
+.av-content__headline {
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-size: clamp(2.8rem, 6vw, 5.5rem);
+  font-weight: 400;
+  line-height: 1.04;
+  letter-spacing: -0.02em;
+  color: #FAFAF8;
+  margin: 0 0 1.25rem;
+  max-width: 700px;
+}
+.av-content__accent {
+  font-style: italic;
+  color: #E8B4A0;
+}
+.av-br-desktop { display: inline; }
+@media (max-width: 640px) { .av-br-desktop { display: none; } }
+
+/* ── Subheadline ── */
+.av-content__sub {
+  font-family: 'Manrope', sans-serif;
+  font-size: 0.875rem;
+  line-height: 1.7;
+  color: rgba(250, 250, 248, 0.65);
+  max-width: 480px;
+  margin: 0 0 2.25rem;
+}
+
+/* ── Primary CTA ── */
+.av-enter-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.875rem;
+  padding: 1rem 2.25rem;
+  border-radius: 9999px;
+  background: rgba(250, 250, 248, 0.12);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(250, 250, 248, 0.28);
+  color: #FAFAF8;
+  font-family: 'Manrope', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
+  margin-bottom: 2.5rem;
+}
+.av-enter-cta:hover {
+  background: rgba(250, 250, 248, 0.22);
+  border-color: rgba(250, 250, 248, 0.5);
+  transform: translateY(-1px);
+}
+.av-enter-cta--dark {
+  background: #8B3A4A;
+  border-color: #8B3A4A;
+  color: #FAFAF8;
+  backdrop-filter: none;
+  box-shadow: 0 8px 32px -4px rgba(139, 58, 74, 0.5);
+  margin-bottom: 0;
+}
+.av-enter-cta--dark:hover {
+  background: #732D3B;
+  border-color: #732D3B;
+}
+.av-enter-cta__arrow {
+  display: inline-block;
+  transition: transform 0.25s ease;
+  font-size: 1rem;
+}
+.av-enter-cta:hover .av-enter-cta__arrow {
+  transform: translateX(5px);
+}
+
+
+/* ── Live caption overlay (during video) ── */
+.av-live-caption {
+  position: absolute;
+  top: 50%;
+  right: 4rem;
+  transform: translateY(-50%) translateX(12px);
+  z-index: 3;
+  opacity: 0;
+  transition: opacity 0.45s ease, transform 0.45s ease;
+  text-align: right;
+  max-width: 280px;
+  pointer-events: none;
+}
+.av-live-caption--visible {
+  opacity: 1;
+  transform: translateY(-50%) translateX(0);
+}
+.av-live-caption__label {
+  display: block;
+  font-family: 'Manrope', sans-serif;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #C4A882;
+  margin-bottom: 0.5rem;
+}
+.av-live-caption__text {
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+  font-style: italic;
+  font-weight: 400;
+  color: #FAFAF8;
+  line-height: 1.45;
+  margin: 0;
+  text-shadow: 0 2px 20px rgba(0,0,0,0.6);
+}
+
+@media (max-width: 767px) {
+  .av-live-caption {
+    right: 1.5rem;
+    top: auto;
+    bottom: 7rem;
+    transform: none;
+    text-align: left;
+  }
+  .av-live-caption--visible {
+    transform: none;
+  }
+}
+
+/* ── End state full-screen ── */
+.av-endstate {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2rem;
+  background: rgba(10, 6, 4, 0.75);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  opacity: 0;
+  transition: opacity 0.8s ease;
+}
+.av-endstate--visible {
+  opacity: 1;
+}
+.av-endstate__brand {
+  font-family: 'Manrope', sans-serif;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: #C4A882;
+  margin-bottom: 1.5rem;
+  display: block;
+}
+.av-endstate__headline {
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-size: clamp(2rem, 5vw, 4rem);
+  font-weight: 400;
+  line-height: 1.1;
+  color: #FAFAF8;
+  margin: 0 0 1rem;
+  letter-spacing: -0.02em;
+  max-width: 600px;
+}
+.av-endstate__sub {
+  font-family: 'Manrope', sans-serif;
+  font-size: 0.875rem;
+  line-height: 1.7;
+  color: rgba(250, 250, 248, 0.65);
+  margin: 0 0 2.5rem;
+}
+
+/* ── Replay button ── */
+.av-replay {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 1.5rem;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-family: 'Manrope', sans-serif;
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: rgba(196, 168, 130, 0.65);
+  padding: 0.5rem 0.75rem;
+  border-radius: 9999px;
+  transition: color 0.2s ease, background 0.2s ease;
+}
+.av-replay:hover {
+  color: #C4A882;
+  background: rgba(196, 168, 130, 0.08);
+}
+

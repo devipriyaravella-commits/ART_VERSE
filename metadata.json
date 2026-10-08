@@ -1,0 +1,6 @@
+{
+  "name": "ARTVERSE — Local Talent, Global Stage",
+  "description": "Digital platform empowering emerging and local artists to showcase portfolios, gain global visibility, find creative opportunities, and connect with audiences worldwide.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
